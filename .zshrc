@@ -1,3 +1,10 @@
 autoload -U compinit; compinit
+
 PROMPT='%n@%m:%~ %# '
-alias ls='ls -G'
+
+# ls color
+if [ "$(uname)" = "Darwin" ]; then
+    alias ls='ls -G'
+else
+    alias ls='ls --color=auto'
+fi
