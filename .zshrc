@@ -1,6 +1,7 @@
 autoload -U compinit; compinit
 
-PROMPT='%n@%m:%~ %# '
+PROMPT='%F{007}[%f%F{red}%n%f%F{007}@%f%F{yellow}%m%f%F{007}:%f%F{green}%~%f%F{007}]%f
+%F{007}%#%f '
 
 # ls color
 if [ "$(uname)" = "Darwin" ]; then
