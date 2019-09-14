@@ -8,7 +8,7 @@ autoload -Uz vcs_info
 # zplug
 export ZPLUG_HOME=$HOME/.zplug
 if [ ! -e $ZPLUG_HOME/init.zsh ]; then
-  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh && until [ -e $ZPLUG_HOME/init.zsh ]; do; done
+    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh && until [ -e $ZPLUG_HOME/init.zsh ]; do; done
 fi
 source $ZPLUG_HOME/init.zsh
 
@@ -19,11 +19,11 @@ zplug 'zsh-users/zsh-history-substring-search'
 zplug 'zsh-users/zsh-syntax-highlighting', defer:2
 
 if ! zplug check --verbose; then
-  printf 'Install? [y/N]: '
-  if read -q; then
-    echo
-    zplug install
-  fi
+    printf 'Install? [y/N]: '
+    if read -q; then
+        echo
+        zplug install
+    fi
 fi
 zplug load
 
@@ -88,6 +88,17 @@ fi
 alias ll='ls -ahlF'
 alias la='ls -A'
 alias l='ls -CF'
+if which nvim >/dev/null 2>&1; then
+    export EDITOR=nvim
+    export VISUAL=nvim
+    alias vi=nvim
+    alias vim=nvim
+    alias vimdiff='nvim -d'
+elif which vim >/dev/null 2>&1; then
+    export EDITOR=vim
+    export VISUAL=vim
+    alias vi=vim
+fi
 
 # prompt
 setopt prompt_subst
