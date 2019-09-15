@@ -57,9 +57,11 @@ autocmd FileType html       setlocal tabstop=2 shiftwidth=2
 autocmd FileType javascript setlocal tabstop=2 shiftwidth=2
 autocmd FileType json       setlocal tabstop=2 shiftwidth=2
 autocmd FileType ruby       setlocal tabstop=2 shiftwidth=2
+autocmd FileType sh         setlocal tabstop=2 shiftwidth=2
 autocmd FileType toml       setlocal tabstop=2 shiftwidth=2
 autocmd FileType vim        setlocal tabstop=2 shiftwidth=2
 autocmd FileType xml        setlocal tabstop=2 shiftwidth=2
+autocmd FileType zsh        setlocal tabstop=2 shiftwidth=2
 
 " Search & Replace
 set hlsearch
