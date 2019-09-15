@@ -20,3 +20,14 @@ for p in $DOTPATH/.??*; do
 
   ln -snfv "$p" "$HOME/$f"
 done
+
+if [ ! -e "$HOME/.gitconfig.local" ]; then
+    echo Git user configuration
+    echo -n "Name: "
+    read git_user_name
+    echo -n "Email address: "
+    read git_user_email
+    echo "[user]" > .gitconfig.local
+    echo -e "\tname = $git_user_name" >> .gitconfig.local
+    echo -e "\temail = $git_user_email" >> .gitconfig.local
+fi

@@ -1,0 +1,26 @@
+[include]
+	path = ~/.gitconfig.local
+[core]
+	editor = nvim
+	quotepath = false
+[merge]
+	ff = false
+	tool = nvimdiff
+[pull]
+	rebase = preserve
+	ff = only
+[diff]
+	tool = nvimdiff
+[difftool "nvimdiff"]
+	cmd = "nvim -R -d -c \"wincmd l\" -d \"$LOCAL\" \"$REMOTE\""
+[mergetool "nvimdiff"]
+	cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+[difftool]
+	prompt = false
+[alias]
+	graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+[color]
+	ui = true
+	diff = auto
+	status = auto
+	branch = auto
