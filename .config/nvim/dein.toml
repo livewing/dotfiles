@@ -52,12 +52,19 @@ repo = 'autozimu/LanguageClient-neovim'
 rev = 'next'
 on_ft = 'rust'
 build = 'bash install.sh'
-
-[[plugins]]
-repo = 'dense-analysis/ale'
 hook_add = '''
-  let g:ale_sign_error = '->'
-  let g:ale_sign_warning = '->'
+  set hidden
+
+  let g:LanguageClient_serverCommands = { 'rust': ['rustup', 'run', 'stable', 'rls'] }
+  augroup LangugeClient_config
+    autocmd!
+    autocmd User LanguageClientStarted setlocal signcolumn=yes
+    autocmd User LanguageClientStopped setlocal signcolumn=auto
+  augroup END
+
+  let g:LanguageClient_autoStart = 1
+
+  nnoremap <C-q> :call LanguageClient_textDocument_hover()<CR>
 '''
 
 [[plugins]]
