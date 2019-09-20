@@ -35,6 +35,24 @@ hook_add = '''
     nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
     nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
   endfunction
+
+  let s:denite_win_width = 0.85
+  let s:denite_win_height = 0.7
+
+  call denite#custom#option('default', {
+    \ 'split': 'floating',
+"    \ 'winwidth': float2nr(&columns * s:denite_win_width),
+"    \ 'wincol': float2nr((&columns - (&columns * s:denite_win_width)) / 2),
+"    \ 'winheight': float2nr(&lines * s:denite_win_height),
+"    \ 'winrow': float2nr((&lines - (&lines * s:denite_win_height)) / 2),
+    \ })
+'''
+
+[[plugins]]
+repo = 'ncm2/float-preview.nvim'
+hook_add = '''
+  set completeopt-=preview
+  let g:float_preview#docked = 0
 '''
 
 [[plugins]]
@@ -70,6 +88,13 @@ hook_add = '''
 [[plugins]]
 repo = 'cohama/lexima.vim'
 on_i = 1
+
+[[plugins]]
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = 'context_filetype.vim'
 
 [[plugins]]
 repo = 'flazz/vim-colorschemes'
