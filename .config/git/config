@@ -1,0 +1,37 @@
+[core]
+	editor = nvim
+	quotepath = false
+[alias]
+	aa = add -A
+	alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t -> \\2/' | sort
+	amend = commit --amend
+	br = branch
+	co = checkout
+	com = commit
+	discard = checkout .
+	graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+	st = status
+	uncommit = reset --soft HEAD^
+	unstage = reset --mixed HEAD
+	wip = !git add -A && git commit -m 'WIP'
+[color]
+	ui = auto
+[diff]
+	indentHeuristic = true
+	tool = nvimdiff
+[difftool]
+	prompt = false
+[difftool "nvimdiff"]
+	cmd = "nvim -R -d -c \"wincmd l\" -d \"$LOCAL\" \"$REMOTE\""
+[init]
+	defaultBranch = main
+[merge]
+	ff = false
+	tool = nvimdiff
+[mergetool "nvimdiff"]
+	cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""
+[pull]
+	ff = only
+	rebase = preserve
+[push]
+	default = current

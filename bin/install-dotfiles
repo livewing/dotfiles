@@ -1,0 +1,110 @@
+#!/usr/bin/env zsh
+
+set -u
+
+# Parse options
+no_restart_shell=0
+while [[ $# -gt 0 ]]; do
+  case "${1}" in
+    --no-restart-shell)
+      no_restart_shell=1
+      ;;
+    *)
+      echo "Unrecognized option: ${1}"
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+# Check login shell
+if [[ $(uname) == 'Darwin' ]]; then
+  login_shell=$(dscl localhost -read Local/Default/Users/$(whoami) UserShell | cut -d' ' -f2)
+else
+  login_shell=$(getent passwd $(whoami) | cut -d: -f7)
+fi
+
+# Check required components
+echo 'Checking required components...'
+has_error=0
+function show_result() {
+  if [[ $? -eq 0 ]]; then
+    echo '\e[42m OK \e[m' "$1"
+  else
+    echo '\e[41m NG \e[m' "$1"
+    has_error=1
+  fi
+}
+[[ $login_shell =~ zsh$ ]];               show_result 'Login shell is zsh  -- `chsh -s $(which zsh)`'
+builtin command -v nvim > /dev/null 2>&1; show_result 'Neovim              -- Text Editor'
+builtin command -v git > /dev/null 2>&1;  show_result 'Git                 -- Version Control System'
+builtin command -v tmux > /dev/null 2>&1; show_result 'tmux                -- Terminal Multiplexer'
+builtin command -v node > /dev/null 2>&1; show_result 'Node.js             -- Required by coc.nvim'
+builtin command -v npm > /dev/null 2>&1;  show_result 'npm                 -- Node Package Manager'
+builtin command -v fzf > /dev/null 2>&1;  show_result 'fzf                 -- Fuzzy Finder'
+if [[ $has_error -ne 0 ]]; then
+  echo 'Please install and configure required components.'
+  exit 1
+fi
+echo
+
+# Link dotfiles
+echo 'Linking dotfiles...'
+dotpath=$(cd $(dirname "$0") && dirname $(pwd -P))
+for p in $dotpath/.??*; do
+  f=$(basename "$p")
+  [[ $f == '.git' ]] && continue
+  [[ $f == '.github' ]] && continue
+  [[ $f == '.gitignore' ]] && continue
+  [[ $f == '.DS_Store' ]] && continue
+  if [[ $f == '.config' ]]; then
+    if [[ ! -e $HOME/.config ]]; then
+      mkdir -v "$HOME/.config" || exit $?
+    fi
+    for pp in $p/*; do
+      ff=$(basename $pp)
+      ln -snfv "$pp" "$HOME/.config/$ff" || exit $?
+    done
+    continue
+  fi
+  ln -snfv "$p" "$HOME/$f" || exit $?
+done
+echo
+
+# Install Zinit
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+  echo 'Installing Zinit...'
+  mkdir -vp "$HOME/.zinit" || exit $?
+  chmod g-rwX "$HOME/.zinit" || exit $?
+  git clone --depth 1 https://github.com/zdharma/zinit "$HOME/.zinit/bin" || exit $?
+  echo
+fi
+
+# Install Zinit plugins
+echo 'Installing Zinit plugins...'
+"$login_shell" -ic exit
+echo
+
+# Install Neovim plugins
+echo 'Installing Neovim plugins...'
+nvim -Esu "$HOME/.config/nvim/init.vim" +qa || exit $?
+echo
+
+# Create empty .gitconfig
+if [[ ! -e $HOME/.gitconfig ]]; then
+  echo 'Creating empty .gitconfig file...'
+  touch "$HOME/.gitconfig" || exit $?
+  echo
+fi
+
+# Done
+if [[ $no_restart_shell -eq 1 ]]; then
+  if [[ $login_shell == ${SHELL:-''} ]]; then
+    echo 'Done. Run `exec "$SHELL" -l` to restart shell.'
+  else
+    echo 'Done. Run `exec "'$login_shell'" -l` to restart shell.'
+  fi
+else
+  echo 'Restarting shell...'
+  exec "$login_shell" -l
+fi

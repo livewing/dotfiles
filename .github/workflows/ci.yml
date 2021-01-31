@@ -1,0 +1,134 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  Lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:latest
+      env:
+        DEBIAN_FRONTEND: noninteractive
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install required components
+        run: apt-get -y update && apt-get -y upgrade && apt-get -y install python3 python3-pip
+      - name: Install shellcheck
+        run: apt-get -y install shellcheck
+      - name: Install vint
+        run: pip3 install vim-vint
+      - name: Execute shellcheck (bootstrap.sh)
+        run: shellcheck etc/bootstrap.sh
+      - name: Execute vint
+        shell: bash
+        run: vint .config/nvim/init.vim{,.d/*.vim}
+
+  Alpine:
+    name: Alpine Linux (${{ matrix.tag }})
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:${{ matrix.tag }}
+    continue-on-error: ${{ matrix.failable }}
+    strategy:
+      fail-fast: false
+      matrix:
+        tag: [latest]
+        failable: [false]
+        include:
+          - tag: edge
+            failable: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install required components
+        run: apk update && apk upgrade && apk add shadow zsh git tmux neovim nodejs npm fzf
+      - name: chsh
+        shell: sh
+        run: |
+          passwd -d $(whoami)
+          chsh -s $(command -v zsh)
+      - name: Install dotfiles
+        run: ./bin/install-dotfiles --no-restart-shell
+
+  Arch:
+    name: Arch Linux
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install required components
+        run: pacman -Syu --noconfirm zsh git tmux neovim nodejs npm fzf
+      - name: chsh
+        shell: sh
+        run: chsh -s $(command -v zsh)
+      - name: Install dotfiles
+        run: ./bin/install-dotfiles --no-restart-shell
+
+  Fedora:
+    name: Fedora (${{ matrix.tag }})
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:${{ matrix.tag }}
+    continue-on-error: ${{ matrix.failable }}
+    strategy:
+      fail-fast: false
+      matrix:
+        tag: [latest]
+        failable: [false]
+        include:
+          - tag: rawhide
+            failable: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install required components
+        run: dnf -y upgrade && dnf -y install zsh git tmux neovim nodejs npm fzf
+      - name: chsh
+        shell: sh
+        run: usermod -s $(command -v zsh) $(whoami)
+      - name: Install dotfiles
+        run: ./bin/install-dotfiles --no-restart-shell
+
+  macOS:
+    name: macOS ${{ matrix.version }}
+    runs-on: macos-${{ matrix.version }}
+    strategy:
+      fail-fast: false
+      matrix:
+        version: ["10.15"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install required components
+        run: brew update && brew upgrade && brew install zsh git tmux neovim nodejs npm fzf
+      - name: chsh
+        shell: sh
+        run: sudo chsh -s $(command -v zsh) $(whoami)
+      - name: Install dotfiles
+        run: ./bin/install-dotfiles --no-restart-shell
+
+  Ubuntu:
+    name: Ubuntu (${{ matrix.tag }})
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:${{ matrix.tag }}
+      env:
+        DEBIAN_FRONTEND: noninteractive
+    continue-on-error: ${{ matrix.failable }}
+    strategy:
+      fail-fast: false
+      matrix:
+        tag: [focal, latest]
+        failable: [false]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install required components
+        run: apt-get -y update && apt-get -y upgrade && apt-get -y install zsh git tmux neovim nodejs npm fzf
+      - name: chsh
+        shell: sh
+        run: chsh -s $(command -v zsh)
+      - name: Install dotfiles
+        run: ./bin/install-dotfiles --no-restart-shell

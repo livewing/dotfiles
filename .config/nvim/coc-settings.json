@@ -1,0 +1,5 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
+  "rust-analyzer.checkOnSave.command": "clippy",
+  "suggest.keepCompleteopt": true
+}
