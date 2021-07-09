@@ -14,6 +14,7 @@ path=(
   $HOME/.deno/bin(N-/)   # Deno
   $HOME/.go/bin(N-/)     # Go
   $HOME/.yarn/bin(N-/)   # Yarn
+  /usr/local/sbin(N-/)   # Homebrew
   $path
 )
 
