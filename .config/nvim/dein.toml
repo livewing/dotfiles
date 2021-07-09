@@ -45,6 +45,10 @@ repo = 'tpope/vim-surround'
 [[plugins]]
 repo = 'tpope/vim-repeat'
 
+# Clever `f`
+[[plugins]]
+repo = 'rhysd/clever-f.vim'
+
 # Comment (`gcc`)
 [[plugins]]
 repo = 'tpope/vim-commentary'
