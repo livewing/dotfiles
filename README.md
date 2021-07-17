@@ -21,6 +21,15 @@
 - GNU `ls` in [Coreutils](https://www.gnu.org/software/coreutils/coreutils.html) -- `ls` using `$LS_COLORS` (BSD `ls` uses `$LSCOLORS`, not `$LS_COLORS`). `alias ls=gls` will be defined if `gls` exists
 - [The Fuck](https://github.com/nvbn/thefuck) -- command correction tool. `fuck` function will be defined if `thefuck` exists
 
+## X11 components (for Linux)
+
+- [LightDM](https://github.com/canonical/lightdm) -- Display manager
+- [light-locker](https://github.com/the-cavalry/light-locker) -- Screen locker
+- [i3](https://i3wm.org/) -- Tiling window manager
+- [i3blocks](https://github.com/vivien/i3blocks) -- Status bar
+- [Alacritty](https://github.com/alacritty/alacritty) -- Terminal emulator
+- [rofi](https://github.com/davatorium/rofi) -- Launcher
+
 ## Install
 
 ### Bootstrap script (recommended)
@@ -80,6 +89,7 @@ Some configurations can be written outside of version control:
 - `$HOME/.gitconfig`
 - `$HOME/.tmux.conf.local`
 - `$HOME/.vimrc.local`
+- `$HOME/.xprofile.local`
 - `$HOME/.zshenv.local`
 - `$HOME/.zshrc.local`
 
@@ -145,6 +155,37 @@ Some configurations can be written outside of version control:
 #### Insert mode
 
 - <kbd>Control</kbd>+<kbd>Space</kbd>: Show completion popup
+
+### i3
+
+<kbd>$mod</kbd> is <kbd>Super</kbd> (<kbd>Windows</kbd>).
+
+- <kbd>$mod</kbd>+<kbd>Return</kbd>: Launch [Alacritty](https://github.com/alacritty/alacritty)
+- <kbd>$mod</kbd>+<kbd>Space</kbd>: Launch [rofi](https://github.com/davatorium/rofi)
+- <kbd>$mod</kbd>+<kbd>Shift</kbd>+<kbd>x</kbd>: Lock screen
+- <kbd>$mod</kbd>+<kbd>q</kbd>: Close window
+- <kbd>$mod</kbd>+<kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>: Change focus
+- <kbd>$mod</kbd>+<kbd>Shift</kbd>+<kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>: Move focused window
+- <kbd>$mod</kbd>+<kbd>a</kbd>: Split horizontally
+- <kbd>$mod</kbd>+<kbd>o</kbd>: Split vertically
+- <kbd>$mod</kbd>+<kbd>f</kbd>: Toggle fullscreen
+- <kbd>$mod</kbd>+<kbd>c</kbd>: Stacked layout
+- <kbd>$mod</kbd>+<kbd>t</kbd>: Tabbed layout
+- <kbd>$mod</kbd>+<kbd>s</kbd>: Toggle split
+- <kbd>$mod</kbd>+<kbd>d</kbd>: Toggle floating
+- <kbd>$mod</kbd>+<kbd>Shift</kbd>+<kbd>d</kbd>: Change focus between tiling / floating
+- <kbd>$mod</kbd>+<kbd>p</kbd>: Focus parent
+- <kbd>$mod</kbd>+<kbd>i</kbd>: Focus child
+- <kbd>$mod</kbd>+<kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd><kbd>7</kbd><kbd>8</kbd><kbd>9</kbd><kbd>0</kbd>: Switch to workspace
+- <kbd>$mod</kbd>+<kbd>Shift</kbd>+<kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><kbd>4</kbd><kbd>5</kbd><kbd>6</kbd><kbd>7</kbd><kbd>8</kbd><kbd>9</kbd><kbd>0</kbd>: Move focused container to workspace
+- <kbd>$mod</kbd>+<kbd>Shift</kbd>+<kbd>c</kbd>: Reload i3 configurations
+- <kbd>$mod</kbd>+<kbd>Shift</kbd>+<kbd>r</kbd>: Restart i3
+- <kbd>$mod</kbd>+<kbd>Shift</kbd>+<kbd>q</kbd>: Logout
+- <kbd>$mod</kbd>+<kbd>r</kbd>: Enter resize mode
+  - <kbd>h</kbd><kbd>j</kbd><kbd>k</kbd><kbd>l</kbd>: Resize window
+  - <kbd>Return</kbd>: Back to normal mode
+  - <kbd>Esc</kbd>: Back to normal mode
+  - <kbd>$mod</kbd>+<kbd>r</kbd>: Back to normal mode
 
 ## License
 

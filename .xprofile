@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# Key repeat
+xset r rate 300 25
+
+# Keymap
+if command -v xmodmap > /dev/null 2>&1 && [ -e "$HOME/.Xmodmap" ]; then
+  xmodmap "$HOME/.Xmodmap"
+fi
+
+# Session locker for LightDM
+if command -v light-locker > /dev/null 2>&1; then
+  light-locker --lock-on-suspend &
+fi
+
+# Input method framework
+if command -v fcitx > /dev/null 2>&1; then
+  export GTK_IM_MODULE=fcitx
+  export QT_IM_MODULE=fcitx
+  export XMODIFIERS=@im=fcitx
+  fcitx
+fi
+
+# Set wallpaper
+[ -e "$HOME/.fehbg" ] && sh "$HOME/.fehbg"
+
+# Source .xprofile.local if present
+[ -e "$HOME/.xprofile.local" ] && source "$HOME/.xprofile.local"

@@ -1,0 +1,36 @@
+separator_block_width=16
+
+[updates]
+command=./scripts/updates.zsh
+interval=3600
+markup=pango
+
+[load average]
+label=Load: 
+command=uptime | awk -F': ' '{print $2}'
+interval=5
+
+[gpu]
+label=GPU: 
+command=printf '%2s %%\n' $(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits)
+interval=1
+
+[memory]
+label=RAM: 
+command=awk -f ./scripts/memory.awk /proc/meminfo
+interval=1
+
+[disk]
+label=Disk: 
+command=df --output=size,used $(findmnt -nro SOURCE /) | awk -f ./scripts/disk.awk
+interval=1
+
+[network]
+command=./scripts/network.zsh
+interval=persist
+#I3BLOCKS_NETWORK_DEVICE=eth0
+#I3BLOCKS_NETWORK_INTERVAL=1.0
+
+[time]
+command=date '+%m/%d(%a) %H:%M'
+interval=1
