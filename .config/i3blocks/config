@@ -7,7 +7,7 @@ markup=pango
 
 [load average]
 label=Load: 
-command=uptime | awk -F': ' '{print $2}'
+command=uptime | awk -F': ' '{print $2}' | sed -e 's/,//g'
 interval=5
 
 [gpu]

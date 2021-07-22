@@ -7,5 +7,5 @@ $1 == "MemTotal:" {
 END {
     used = total - available
     rate = used / total * 100
-    printf "%.2f / %.2f GB (%.1f %%)\n", used, total, rate
+    printf "%5.2f / %5.2f GB (%4.1f %%)\n", used, total, rate
 }
