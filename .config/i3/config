@@ -9,7 +9,7 @@ floating_modifier $mod
 bindsym Print exec import -window root ~/screenshot-$(date "+%Y%m%d-%H%M%S").png
 bindsym $mod+Print exec import -window $(xprop -root | awk '$1=="_NET_ACTIVE_WINDOW(WINDOW):"{print $5}') ~/screenshot-$(date "+%Y%m%d-%H%M%S").png
 
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec --no-startup-id alacritty
 bindsym $mod+space exec --no-startup-id "rofi -show combi"
 bindsym $mod+Shift+x exec --no-startup-id light-locker-command -l
 
