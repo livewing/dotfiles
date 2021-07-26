@@ -29,5 +29,10 @@ if command -v picom > /dev/null 2>&1; then
   picom -b
 fi
 
+# Color temperature
+if command -v redshift-gtk > /dev/null 2>&1; then
+  redshift-gtk &
+fi
+
 # Source .xprofile.local if present
 [ -e "$HOME/.xprofile.local" ] && source "$HOME/.xprofile.local"
