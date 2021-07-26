@@ -1,6 +1,6 @@
 configuration {
     theme: "slate-mod";
-    modi: "combi,drun,run,ssh,window";
-    combi-modi: "drun,run,ssh,window";
+    modi: "combi,drun,system:~/.config/rofi/system.zsh,ssh,window,run";
+    combi-modi: "drun,system,ssh,window,run";
     show-icons: true;
 }
