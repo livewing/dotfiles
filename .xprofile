@@ -24,5 +24,10 @@ fi
 # Set wallpaper
 [ -e "$HOME/.fehbg" ] && sh "$HOME/.fehbg"
 
+# Compositor
+if command -v picom > /dev/null 2>&1; then
+  picom -b
+fi
+
 # Source .xprofile.local if present
 [ -e "$HOME/.xprofile.local" ] && source "$HOME/.xprofile.local"
