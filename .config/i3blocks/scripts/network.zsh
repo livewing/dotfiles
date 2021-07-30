@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-I3BLOCKS_NETWORK_DEVICE=${I3BLOCKS_NETWORK_DEVICE:-$(networkctl list | awk '$4="routable"{print $2}')}
+I3BLOCKS_NETWORK_DEVICE=${I3BLOCKS_NETWORK_DEVICE:-$(networkctl list | awk '$4=="routable"{print $2}')}
 I3BLOCKS_NETWORK_INTERVAL=${I3BLOCKS_NETWORK_INTERVAL:-1.0}
 
 statistics="/sys/class/net/$I3BLOCKS_NETWORK_DEVICE/statistics"
