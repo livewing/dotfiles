@@ -2,7 +2,7 @@
 
 set -u
 
-dotfiles_repository=gssequence/dotfiles.git
+dotfiles_repository=livewing/dotfiles.git
 
 if ! command -v git > /dev/null 2>&1; then
   echo 'Git is not available, cannot proceed.'

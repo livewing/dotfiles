@@ -1,7 +1,7 @@
 # dotfiles
 
-[![CI](https://github.com/gssequence/dotfiles/workflows/CI/badge.svg)](https://github.com/gssequence/dotfiles/actions?query=workflow%3ACI)
-[![LICENSE](https://img.shields.io/github/license/gssequence/dotfiles)](./LICENSE)
+[![CI](https://github.com/livewing/dotfiles/workflows/CI/badge.svg)](https://github.com/livewing/dotfiles/actions?query=workflow%3ACI)
+[![LICENSE](https://img.shields.io/github/license/livewing/dotfiles)](./LICENSE)
 
 ![Screenshot](https://user-images.githubusercontent.com/7447366/106382257-b1765800-6401-11eb-9c45-43fd9cb0c09b.png)
 
@@ -50,7 +50,7 @@ NOTE: `r.livewing.net/dot` will redirect to [the bootstrap script](./etc/bootstr
 
 ```sh
 $ cd
-$ git clone https://github.com/gssequence/dotfiles.git
+$ git clone https://github.com/livewing/dotfiles.git
 $ ./dotfiles/bin/install-dotfiles
 ```
 
